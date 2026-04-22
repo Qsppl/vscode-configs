@@ -1,0 +1,8 @@
+{
+    "recommendations": [
+        "junstyle.php-cs-fixer",
+        "Gruntfuggly.triggertaskonsave",
+        "ms-vscode-remote.remote-containers",
+        "SanderRonde.phpstan-vscode"
+    ]
+}

@@ -1,0 +1,62 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "PHP CS",
+            "type": "shell",
+            "command": "bash .vscode/php-cs-parser.sh",
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "focus": false
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "problemMatcher": {
+                "owner": "php-cs-fixer",
+                "source": "php-cs-fixer",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
+                "pattern": {
+                    "regexp": "^CS (.+):(\\d+):(\\d+): (.+)$",
+                    "file": 1,
+                    "line": 2,
+                    "endColumn": 3,
+                    "message": 4
+                }
+            }
+        },
+        {
+            "label": "Psalm",
+            "type": "shell",
+            "command": "bash .vscode/psalm-parser.sh",
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "focus": false
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "problemMatcher": {
+                "owner": "psalm",
+                "source": "psalm",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^([^|]+)\\|(\\d+)\\|(\\d+)\\|(\\d+)\\|(\\d+)\\|(error|info|warning)\\|([^|]+)\\|(.+)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "endLine": 4,
+                    "endColumn": 5,
+                    "severity": 6,
+                    "code": 7,
+                    "message": 8
+                }
+            }
+        }
+    ]
+}
