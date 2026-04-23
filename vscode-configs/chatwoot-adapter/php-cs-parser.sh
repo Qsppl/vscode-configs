@@ -1,14 +1,34 @@
 #!/bin/bash
 
-# Оборачивает `make cs-check`: из unified-diff PHP CS Fixer вытаскивает
-# строки с нарушениями и, где это возможно, показывает ожидаемое содержимое
-# (новую строку из diff'а). Формат:
+# Запускает php-cs-fixer в dry-run режиме через composer, забирает его unified-diff
+# и печатает по строке на нарушение в формате, который парсит problem matcher
+# из .vscode/tasks.json:
 #   CS file:line:endCol: Should be: <new content>
-# Парсится problem matcher'ом в .vscode/tasks.json.
+#
+# Прямой вызов composer, без make: так парсер получает только вывод fixer'а,
+# а не смесь с phpcs (объединение fixer+phpcs живёт в Makefile/CI).
 
-make cs-check 2>&1 | awk '
 cd "$(dirname "$0")/.." || exit 1
 
+# PHP CS Fixer v3.95+ в разных shell-окружениях отдаёт то JSON, то обычный
+# unified diff (эвристика @auto + параллельный режим). Буферизуем вывод в
+# переменную и, если он начинается с `{` — вытягиваем diff-поля из JSON;
+# иначе отдаём awk как есть.
+raw="$(XDEBUG_MODE=off composer cs-check 2>/dev/null)"
+
+case "$raw" in
+    '{'*)
+        raw="$(printf '%s' "$raw" | php -r '
+            $data = json_decode(stream_get_contents(STDIN), true);
+            if (!is_array($data) || empty($data["files"])) exit(0);
+            foreach ($data["files"] as $f) {
+                if (!empty($f["diff"])) echo $f["diff"], "\n";
+            }
+        ')"
+        ;;
+esac
+
+printf '%s\n' "$raw" | awk '
     function flush(    i, new_content) {
         for (i = 1; i <= m_n; i++) {
             new_content = (i <= p_n) ? p_c[i] : ""
