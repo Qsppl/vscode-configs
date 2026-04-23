@@ -1,22 +1,27 @@
 #!/bin/bash
 set -e
 
-# VS Code Server клонирует этот репо в ~/dotfiles и запускает install.sh
-# ДО того, как workspace откроется. Поэтому файлы .vscode/ успевают появиться,
-# и Workspace Settings подхватываются корректно.
+DOTFILES="$(cd "$(dirname "$0")" && pwd)"
 
-DOTFILES="$(dirname "$(realpath "$0")")"
+# Перебираем типичные точки монтирования Dev Container'ов:
+#   - /workspaces/*/ — image-based Dev Container (VS Code template'ы).
+#   - /app, /workspace, /code, /src, /srv/app, /var/www/html — compose-based
+#     Dev Container, где workspace указывается в workspaceFolder и часто бывает
+#     одним из этих путей.
+# Для каждой точки проверяем: это git-репо → получаем имя проекта
+# через basename git-top-level. Если в dotfiles есть
+# projects/<имя>/ — копируем оттуда .vscode/.
+for candidate in /workspaces/*/ /app /workspace /code /src /srv/app /var/www/html; do
+    [ -d "$candidate/.git" ] || continue
+    workspace="${candidate%/}"
+    project="$(basename "$(git -C "$workspace" rev-parse --show-toplevel 2>/dev/null)" 2>/dev/null || true)"
+    [ -z "$project" ] && continue
 
-# Ищем workspace-директорию (в Dev Container'е она всегда в /workspaces/)
-for workspace in /workspaces/*/; do
-    project_name=$(basename "$workspace")
-    config_src="$DOTFILES/vscode-configs/$project_name"
+    source="$DOTFILES/projects/$project"
+    [ -d "$source" ] || continue
 
-    if [ -d "$config_src" ]; then
-        echo "Applying .vscode config for $project_name"
-        mkdir -p "$workspace.vscode"
-        cp -r "$config_src"/* "$workspace.vscode/"
-        # sh-скрипты делаем исполняемыми
-        find "$workspace.vscode" -name '*.sh' -exec chmod +x {} \;
-    fi
+    echo "dotfiles: applying .vscode config for $project → $workspace/.vscode/"
+    mkdir -p "$workspace/.vscode"
+    cp -r "$source/." "$workspace/.vscode/"
+    find "$workspace/.vscode" -name '*.sh' -exec chmod +x {} \;
 done
