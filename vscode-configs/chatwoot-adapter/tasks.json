@@ -30,6 +30,33 @@
             }
         },
         {
+            "label": "PHPCS",
+            "type": "shell",
+            "command": "bash .vscode/phpcs-parser.sh",
+            "presentation": {
+                "reveal": "never",
+                "panel": "dedicated",
+                "focus": false
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
+            },
+            "problemMatcher": {
+                "owner": "phpcs",
+                "source": "phpcs",
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^(.+):(\\d+):(\\d+):(\\d+):\\s+(error|warning)\\s+-\\s+(.+)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "endColumn": 4,
+                    "severity": 5,
+                    "message": 6
+                }
+            }
+        },
+        {
             "label": "Psalm",
             "type": "shell",
             "command": "bash .vscode/psalm-parser.sh",
