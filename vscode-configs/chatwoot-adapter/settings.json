@@ -7,7 +7,7 @@
     // PHPUnit: прямой php + bin/phpunit. Хвост `-d xdebug.client_host=host.docker.internal`
     // перебивает DEVSENSE-овский хардкод 127.0.0.1 в debug-режиме (last-wins).
     "phpunit.command": "\"${php}\" ${phpargs} -d xdebug.client_host=host.docker.internal \"${phpunit}\" ${phpunitargs}",
-    // PHP CS Fixer: обёртка делает `cd` в корень проекта перед запуском бинаря.
+    // PHP CS (major): обёртка делает `cd` в корень проекта перед запуском бинаря.
     // Расширение junstyle запускает бинарь из папки форматируемого файла, а CS
     // Fixer читает composer.json только из cwd (без walk-up) — без обёртки сыпятся
     // warning'и про minimum PHP version.
@@ -15,10 +15,10 @@
     // cs-check и psalm не имеют watch-режима: назначаем запуск на folderOpen (в
     // .vscode/tasks.json) и на каждое сохранение .php-файла.
     "triggerTaskOnSave.tasks": {
-        "PHP CS": [
+        "PHP CS (major)": [
             "**/*.php"
         ],
-        "PHPCS": [
+        "PHP CS (minor)": [
             "**/*.php"
         ],
         "Psalm": [
@@ -29,5 +29,8 @@
     // Intelephense пытается их индексировать и сжирает память.
     "intelephense.files.exclude": [
         "**/vendor/vimeo/psalm/dictionaries/**"
+    ],
+    "cSpell.words": [
+        "Mailpit"
     ]
 }

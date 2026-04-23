@@ -7,6 +7,8 @@
 # Парсится problem matcher'ом в .vscode/tasks.json.
 
 make cs-check 2>&1 | awk '
+cd "$(dirname "$0")/.." || exit 1
+
     function flush(    i, new_content) {
         for (i = 1; i <= m_n; i++) {
             new_content = (i <= p_n) ? p_c[i] : ""

@@ -10,5 +10,5 @@
 # дефолт: подсветится от начала строки до места нарушения, а не один символ.
 
 cd "$(dirname "$0")/.." || exit 1
-XDEBUG_MODE=off vendor/bin/phpcs --report=emacs \
+XDEBUG_MODE=off composer cs-line-length -- --report=emacs 2>/dev/null \
     | sed -E 's#^(/[^:]+):([0-9]+):([0-9]+): (error|warning) - #\1:\2:1:\3: \4 - #'

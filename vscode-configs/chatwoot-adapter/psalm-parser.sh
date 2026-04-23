@@ -10,11 +10,13 @@ report="$(mktemp -d)/psalm-report.json"
 trap 'rm -rf "$(dirname "$report")"' EXIT
 
 # Psalm возвращает exit=2 при найденных ошибках - это штатно, не фейлим скрипт.
-vendor/bin/psalm --no-progress --report="$report" >/dev/null 2>&1 || true
+# XDEBUG_MODE=off — без этого xdebug пробует коннектится к отсутствующему клиенту
+# и заваливает терминал с ошибкой "Could not connect to debugging client".
+XDEBUG_MODE=off composer psalm -- --report="$report" >/dev/null 2>&1 || true
 
 [ -s "$report" ] || exit 0
 
-php -r '
+XDEBUG_MODE=off php -r '
 $data = json_decode(file_get_contents($argv[1]), true);
 
 if (!is_array($data)) {

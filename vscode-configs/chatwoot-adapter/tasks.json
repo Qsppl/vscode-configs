@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "PHP CS",
+            "label": "PHP CS (major)",
             "type": "shell",
             "command": "bash .vscode/php-cs-parser.sh",
             "presentation": {
@@ -30,7 +30,7 @@
             }
         },
         {
-            "label": "PHPCS",
+            "label": "PHP CS (minor)",
             "type": "shell",
             "command": "bash .vscode/phpcs-parser.sh",
             "presentation": {
