@@ -30,6 +30,9 @@
     "intelephense.files.exclude": [
         "**/vendor/vimeo/psalm/dictionaries/**"
     ],
+    "php.files.exclude": {
+        "**/var/**": true
+    },
     "cSpell.words": [
         "analyse",
         "codesniffer",
