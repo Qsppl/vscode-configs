@@ -7,4 +7,4 @@
 # из-за чего в extension-output сыпался warning
 # "Unable to determine minimum PHP version supported by your project from composer.json".
 
-cd "$(dirname "$0")/.." && exec composer exec -- php-cs-fixer "$@"
+cd "$(dirname "$0")/.." && exec env XDEBUG_MODE=off composer exec -- php-cs-fixer "$@"
