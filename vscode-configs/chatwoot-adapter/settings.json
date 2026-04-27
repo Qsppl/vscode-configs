@@ -31,7 +31,20 @@
         "**/vendor/vimeo/psalm/dictionaries/**"
     ],
     "cSpell.words": [
-        "Mailpit"
+        "analyse",
+        "codesniffer",
+        "ctype",
+        "frankenphp",
+        "friendsofphp",
+        "healthcheck",
+        "isready",
+        "Mailpit",
+        "phpcs",
+        "phpdoc",
+        "phpdocumentor",
+        "phpstan",
+        "phpunit",
+        "squizlabs"
     ],
     "prettier.configPath": ".vscode/.prettierrc"
 }
