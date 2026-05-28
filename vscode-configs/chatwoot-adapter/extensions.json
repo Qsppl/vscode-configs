@@ -3,6 +3,18 @@
         "junstyle.php-cs-fixer",
         "Gruntfuggly.triggertaskonsave",
         "ms-vscode-remote.remote-containers",
-        "SanderRonde.phpstan-vscode"
+        "SanderRonde.phpstan-vscode",
+        "mikestead.dotenv",
+        "bashmish.es6-string-css",
+        "anthropic.claude-code",
+        "streetsidesoftware.code-spell-checker",
+        "devsense.composer-php-vscode",
+        "editorconfig.editorconfig",
+        "tobermory.es6-string-html",
+        "eamodio.gitlens",
+        "devsense.phptools-vscode",
+        "bmewburn.vscode-intelephense-client",
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker-russian"
     ]
 }

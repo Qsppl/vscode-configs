@@ -49,5 +49,6 @@
         "phpunit",
         "squizlabs"
     ],
-    "prettier.configPath": ".vscode/.prettierrc"
+    "prettier.configPath": ".vscode/.prettierrc",
+    "makefile.configureOnOpen": false
 }
