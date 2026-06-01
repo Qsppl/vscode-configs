@@ -30,6 +30,20 @@ esac
 
 printf '%s\n' "$raw" | awk '
     function flush(    i, new_content) {
+        if (m_n == 0 && p_n > 0) {
+            for (i = 1; i <= p_n; i++) {
+                new_content = p_c[i]
+                sub(/^[[:space:]]+/, "", new_content)
+                if (new_content == "") {
+                    printf "CS %s:%d:9999: Insert blank line here (run: make cs-fix)\n", file, line
+                } else {
+                    printf "CS %s:%d:9999: Insert: %s (run: make cs-fix)\n", file, line, new_content
+                }
+            }
+            m_n = 0
+            p_n = 0
+            return
+        }
         for (i = 1; i <= m_n; i++) {
             new_content = (i <= p_n) ? p_c[i] : ""
             # Обрезаем ведущие пробелы для удобочитаемости.

@@ -42,12 +42,19 @@
         "healthcheck",
         "isready",
         "Mailpit",
+        "officedocument",
+        "openxmlformats",
         "phpcs",
         "phpdoc",
         "phpdocumentor",
         "phpstan",
         "phpunit",
-        "squizlabs"
+        "spreadsheetml",
+        "squizlabs",
+        "taggings",
+        "tgns",
+        "резолвер",
+        "резолвы"
     ],
     "prettier.configPath": ".vscode/.prettierrc",
     "makefile.configureOnOpen": false
