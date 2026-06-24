@@ -57,6 +57,16 @@
             }
         },
         {
+            "label": "Warmup test container",
+            "type": "shell",
+            "command": "php bin/console cache:warmup --env=test",
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated",
+                "focus": false
+            }
+        },
+        {
             "label": "Psalm",
             "type": "shell",
             "command": "bash .vscode/psalm-parser.sh",
@@ -68,6 +78,10 @@
             "runOptions": {
                 "runOn": "folderOpen"
             },
+            "dependsOn": [
+                "Warmup test container"
+            ],
+            "dependsOrder": "sequence",
             "problemMatcher": {
                 "owner": "psalm",
                 "source": "psalm",
