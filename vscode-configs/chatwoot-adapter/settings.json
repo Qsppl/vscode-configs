@@ -16,13 +16,14 @@
     // .vscode/tasks.json) и на каждое сохранение .php-файла.
     "triggerTaskOnSave.tasks": {
         "PHP CS (major)": [
-            "**/*.php"
+            "**/*.php",
         ],
         "PHP CS (minor)": [
-            "**/*.php"
+            "**/*.php",
         ],
         "Psalm": [
-            "**/*.php"
+            "**/*.php",
+            "*.xml",
         ]
     },
     // Psalm тащит dictionaries (sig-карты PHP-функций) по несколько мегабайт —
